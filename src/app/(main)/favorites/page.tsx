@@ -1,6 +1,6 @@
 "use server";
 
-import Pagination from "@/src/components/pagination";
+import Pagination from "@/src/components/page/pagination";
 import FavoriteCryptoTable from "@/src/components/tables/favorite-crypto-table";
 import { getFavoriteCoins } from "@/src/lib/get-favorite-coins";
 

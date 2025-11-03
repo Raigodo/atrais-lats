@@ -8,5 +8,5 @@ export async function handleLogin(formData: FormData) {
 
     console.log("Form submitted:", { name, email });
 
-    redirect("/home");
+    redirect("/currencies");
 }

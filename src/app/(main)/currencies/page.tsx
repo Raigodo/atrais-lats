@@ -1,6 +1,6 @@
 "use server";
 
-import Pagination from "@/src/components/pagination";
+import Pagination from "@/src/components/page/pagination";
 import CryptoTable from "@/src/components/tables/crypto-table";
 import { getLatestCoinListings } from "@/src/lib/coin-market-cap-api";
 

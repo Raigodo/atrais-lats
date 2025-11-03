@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import LoginButton from "@/src/components/buttons/login-button";
-import LogoutButton from "@/src/components/buttons/logout-button";
+import LoginButton from "@/src/components/page/login-button";
+import LogoutButton from "@/src/components/page/buttons/logout-button";
 import { cn } from "../../lib/utils";
 import { buttonVariants } from "../../components/ui/button";
 import { Suspense } from "react";
@@ -23,13 +23,13 @@ export default function RootLayout({
         <>
             <header className="h-16 px-4 bg-background2 sticky top-0 z-50 shadow-md">
                 <div className="grid h-full max-w-7xl mx-auto items-center grid-cols-[auto_1fr]">
-                    <Link href="/home">
+                    <Link href="/currencies">
                         <img className="h-16 py-2" src="/logo1.png" alt="atrais lats" />
                     </Link>
                     <nav className="grow justify-self-end">
                         <ul className="flex gap-2">
                             <li>
-                                <Link href="/home">
+                                <Link href="/currencies">
                                     <div
                                         className={cn(
                                             buttonVariants({ variant: "ghost" }),
