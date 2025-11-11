@@ -2,9 +2,9 @@ import BaseModalComponent from "../base-modal-component";
 import ModalWrapper, { BaseModalComponentProps } from "../dialog-wrapper";
 import { ModalKeys } from "../modal-keys";
 
-export interface CreateFavoriteModalComponentProps extends BaseModalComponentProps {}
+export interface EditFavoriteModalComponentProps extends BaseModalComponentProps {}
 
-const ModalComponent = ({ isOpen, closeModal }: CreateFavoriteModalComponentProps) => {
+const ModalComponent = ({ isOpen, closeModal }: EditFavoriteModalComponentProps) => {
     return (
         <BaseModalComponent
             isOpen={isOpen}
@@ -17,8 +17,8 @@ const ModalComponent = ({ isOpen, closeModal }: CreateFavoriteModalComponentProp
     );
 };
 
-const CreateFavoriteModal = () => {
-    return <ModalWrapper modalKey={ModalKeys.CREATE_FAVOTITE} modalComponent={ModalComponent} />;
+const EditFavoriteModal = () => {
+    return <ModalWrapper modalKey={ModalKeys.EDIT_FAVORITE} modalComponent={ModalComponent} />;
 };
 
-export default CreateFavoriteModal;
+export default EditFavoriteModal;

@@ -1,3 +1,5 @@
+"use client";
+
 import { CoinModel } from "@/src/lib/models/coin-model";
 import {
     Table,
@@ -8,8 +10,17 @@ import {
     TableHeader,
     TableRow,
 } from "../ui/table";
+import { useModalManager } from "../dialogs/modal-manager-context-provider";
+import { isModuleNamespaceObject } from "util/types";
+import { ModalKeys } from "../dialogs/modal-keys";
 
 function CryptoTable({ items }: { items: CoinModel[] }) {
+    const { openModal } = useModalManager();
+
+    function onCoinClicked(coin: CoinModel) {
+        openModal({ key: ModalKeys.CREATE_FAVOTITE });
+    }
+
     return (
         <Table>
             <TableCaption>Šodienas Kripto valūtu cenas</TableCaption>
@@ -25,23 +36,23 @@ function CryptoTable({ items }: { items: CoinModel[] }) {
             </TableHeader>
 
             <TableBody>
-                {items.map((crypto, index) => (
-                    <TableRow key={crypto.symbol ?? index}>
-                        <TableCell>{crypto.name}</TableCell>
+                {items.map((coin, index) => (
+                    <TableRow key={coin.symbol ?? index} onClick={() => onCoinClicked(coin)}>
+                        <TableCell>{coin.name}</TableCell>
 
-                        <TableCell>{crypto.symbol}</TableCell>
+                        <TableCell>{coin.symbol}</TableCell>
 
-                        <TableCell>{Number(crypto.price).toFixed(4)}</TableCell>
+                        <TableCell>{Number(coin.price).toFixed(4)}</TableCell>
 
                         <TableCell
                             className={
-                                crypto.percent_change_1h < 0 ? "text-red-600" : "text-green-600"
+                                coin.percent_change_1h < 0 ? "text-red-600" : "text-green-600"
                             }
                         >
-                            {Number(crypto.percent_change_1h).toFixed(2)}%
+                            {Number(coin.percent_change_1h).toFixed(2)}%
                         </TableCell>
 
-                        <TableCell>{crypto.isFavorite ? "★" : "☆"}</TableCell>
+                        <TableCell>{coin.isFavorite ? "★" : "☆"}</TableCell>
                     </TableRow>
                 ))}
             </TableBody>

@@ -5,7 +5,7 @@ import CryptoTable from "@/src/components/tables/crypto-table";
 import { getLatestCoinListings } from "@/src/lib/coin-market-cap-api";
 
 export default async function Page() {
-    const cryptoList: any[] = await getLatestCoinListings();
+    const cryptoList = await getLatestCoinListings();
 
     return (
         <div className="flex items-center justify-center">
