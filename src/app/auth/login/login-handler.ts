@@ -1,8 +1,6 @@
-"use server";
-
 import { redirect } from "next/navigation";
 
-export async function handleLogin(formData: FormData) {
+export async function loginAction(formData: FormData) {
     const name = formData.get("name");
     const email = formData.get("email");
 

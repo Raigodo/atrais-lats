@@ -1,26 +1,14 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import LoginButton from "@/src/components/page/login-button";
 import { cn } from "../../lib/utils";
 import { buttonVariants } from "../../components/ui/button";
-import { Suspense } from "react";
 import ModalManagerContextProvider from "@/src/components/dialogs/modal-manager-context-provider";
+import MySessionProvider from "@/src/components/my-session-provider";
+import { Suspense } from "react";
 
-export const metadata: Metadata = {
-    title: "Atrais Lats",
-    icons: {
-        icon: "../public/logo1.png",
-        apple: "../public/logo1.png",
-    },
-};
-
-export default function RootLayout({
-    children,
-}: Readonly<{
-    children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     return (
-        <Suspense>
+        <MySessionProvider>
             <ModalManagerContextProvider>
                 <header className="h-16 px-4 bg-background2 sticky top-0 z-50 shadow-md">
                     <div className="grid h-full max-w-7xl mx-auto items-center grid-cols-[auto_1fr]">
@@ -62,6 +50,6 @@ export default function RootLayout({
                     {children}
                 </div>
             </ModalManagerContextProvider>
-        </Suspense>
+        </MySessionProvider>
     );
 }

@@ -1,12 +1,11 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import CreateFavoriteModal, {
     CreateFavoriteModalComponentProps,
 } from "./favorites/create-favorite";
 import EditFavoriteModal, { EditFavoriteModalComponentProps } from "./favorites/edit-favorite";
 import { ModalKeys } from "./modal-keys";
-import { useRouter, useSearchParams } from "next/navigation";
 
 type KeyToModalComponentPropsMap = {
     [ModalKeys.CREATE_FAVOTITE]: {} & CreateFavoriteModalComponentProps;
