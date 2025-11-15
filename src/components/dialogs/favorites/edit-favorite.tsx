@@ -1,5 +1,5 @@
 import BaseModalComponent from "../base-modal-component";
-import ModalWrapper, { BaseModalComponentProps } from "../dialog-wrapper";
+import ModalWrapper, { BaseModalComponentProps } from "../modal-wrapper";
 import { ModalKeys } from "../modal-keys";
 
 export interface EditFavoriteModalComponentProps extends BaseModalComponentProps {}

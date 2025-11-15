@@ -3,7 +3,7 @@
 import { ReactNode } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "../ui/dialog";
 import { ScrollArea } from "../ui/scroll-area";
-import { BaseModalComponentProps } from "./dialog-wrapper";
+import { BaseModalComponentProps } from "./modal-wrapper";
 
 interface ResourceModalComponentProps extends BaseModalComponentProps {
     children: ReactNode;

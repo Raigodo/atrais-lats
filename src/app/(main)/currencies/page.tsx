@@ -2,10 +2,10 @@
 
 import Pagination from "@/src/components/page/pagination";
 import CryptoTable from "@/src/components/tables/crypto-table";
-import { getLatestCoinListings } from "@/src/lib/coin-market-cap-api";
+import { Coins } from "@/src/lib/dao/coins";
 
 export default async function Page() {
-    const cryptoList = await getLatestCoinListings();
+    const cryptoList = await Coins.getLatestListings();
 
     return (
         <div className="flex items-center justify-center">
@@ -13,7 +13,6 @@ export default async function Page() {
                 <div className="text-center mb-10">
                     <h1 className="text-3xl font-bold">Šodienas Kripto valūtu cenas!</h1>
                 </div>
-
                 <CryptoTable items={cryptoList} />
                 <Pagination />
             </div>
