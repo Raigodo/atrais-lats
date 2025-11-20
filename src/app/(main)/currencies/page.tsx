@@ -3,9 +3,12 @@
 import Pagination from "@/src/components/page/pagination";
 import CryptoTable from "@/src/components/tables/crypto-table";
 import { Coins } from "@/src/lib/dao/coins";
+import { getServerSession } from "next-auth";
 
 export default async function Page() {
     const cryptoList = await Coins.getLatestListings();
+    const session = await getServerSession();
+    console.log("page", session);
 
     return (
         <div className="flex items-center justify-center">

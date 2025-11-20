@@ -19,15 +19,21 @@ export const Coins = {
 
     getFavoriteCoins: async (userId: string): Promise<FavoriteCoinModel[]> => {
         "use cache";
+        cacheTag("users");
         cacheTag("coins");
-        cacheTag("favorite-coins");
+        cacheTag(`favorite-coins:${userId}`);
 
-        const coins = await prisma.favoriteCryptoCoin.findMany({
+        const userFavorites = await prisma.favoriteCryptoCoin.findMany({
             where: {
                 userId,
             },
+            include: { coin: true },
         });
 
-        return [];
+        return userFavorites.map((favorite) => ({
+            ...favorite.coin,
+            min: favorite.min,
+            max: favorite.max,
+        }));
     },
 };

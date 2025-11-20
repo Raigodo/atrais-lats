@@ -1,8 +1,8 @@
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
-    "email" TEXT NOT NULL,
     "name" TEXT,
+    "email" TEXT,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -27,8 +27,8 @@ CREATE TABLE "FavoriteCryptoCoin" (
     CONSTRAINT "FavoriteCryptoCoin_pkey" PRIMARY KEY ("symbol","userId")
 );
 
--- CreateIndex
-CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+-- AddForeignKey
+ALTER TABLE "FavoriteCryptoCoin" ADD CONSTRAINT "FavoriteCryptoCoin_symbol_fkey" FOREIGN KEY ("symbol") REFERENCES "CryptoCoin"("symbol") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "FavoriteCryptoCoin" ADD CONSTRAINT "FavoriteCryptoCoin_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

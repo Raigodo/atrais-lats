@@ -5,36 +5,51 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  	provider = "prisma-client"
+  	output   = "../generated/prisma"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  	provider = "postgresql"
+  	url      = env("DATABASE_URL")
 }
 
 model User {
-  id              String    @id
-  email           String    @unique
-  name            String?
-  favorites       FavoriteCryptoCoin[]
+  	id          	String					@id
+  	name            String?
+  	email           String?
+	
+	OAuthUsers		OAuthUsers[]
+  	favorites       FavoriteCryptoCoin[]
+}
+
+model OAuthUsers {
+	provider		String
+	providerUserId	String
+  	userId		    String
+
+  	user            User                    @relation(fields: [userId], references: [id])
+
+	@@id([provider, providerUserId])
 }
 
 model CryptoCoin {
-  symbol          String    @id
-  price           Float
-  name            String
-  percentChange   Float
+  	symbol          String    				@id
+  	price           Float
+  	name            String
+  	percentChange   Float
+		
+	favorites       FavoriteCryptoCoin[]
 }
 
 model FavoriteCryptoCoin {
-  symbol          String
-  userId          String
-  min             Float
-  max             Float
+  	symbol          String
+  	userId		    String
+  	min             Float
+  	max             Float
 
-  user            User      @relation(fields: [userId], references: [id])
+	coin			CryptoCoin             	@relation(fields: [symbol], references: [symbol])
+  	user            User                    @relation(fields: [userId], references: [id])
 
-  @@id([symbol, userId])
+  	@@id([symbol, userId])
 }
