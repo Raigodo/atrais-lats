@@ -1,7 +1,9 @@
-import React from "react";
+"use client";
+
+import { Button } from "../../ui/button";
 
 function SubmitButton() {
-    return <div></div>;
+    return <Button type="submit">Submit</Button>;
 }
 
 export default SubmitButton;

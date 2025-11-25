@@ -35,11 +35,9 @@ function FavoriteCryptoTable({ items }: { items: FavoriteCoinModel[] }) {
                         <TableCell>{Number(crypto.price).toFixed(4)}</TableCell>
 
                         <TableCell
-                            className={
-                                crypto.percent_change_1h < 0 ? "text-red-600" : "text-green-600"
-                            }
+                            className={crypto.percentChange < 0 ? "text-red-600" : "text-green-600"}
                         >
-                            {Number(crypto.percent_change_1h).toFixed(2)}%
+                            {Number(crypto.percentChange).toFixed(2)}%
                         </TableCell>
 
                         <TableCell>{crypto.min}</TableCell>

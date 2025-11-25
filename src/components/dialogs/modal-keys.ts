@@ -1,4 +1,4 @@
 export enum ModalKeys {
-    CREATE_FAVOTITE = "create-favorite",
+    CREATE_FAVORITE = "create-favorite",
     EDIT_FAVORITE = "edit-favorite",
 }

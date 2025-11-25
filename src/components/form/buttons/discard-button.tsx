@@ -1,7 +1,13 @@
-import React from "react";
+"use client";
+
+import { Button } from "../../ui/button";
 
 function DiscardButton() {
-    return <div></div>;
+    return (
+        <Button variant={"secondary"} type="button">
+            Discard
+        </Button>
+    );
 }
 
 export default DiscardButton;

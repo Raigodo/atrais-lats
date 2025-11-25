@@ -1,16 +1,20 @@
 "use client";
 
-import BaseModalComponent from "../base-modal-component";
-import ModalWrapper, { BaseModalComponentProps } from "../modal-wrapper";
-import { ModalKeys } from "../modal-keys";
+import BaseModalComponent, { AbstractModalComponentProps } from "../base-modal-component";
 import { toggleBookmark } from "./favorite-actions";
 import { useTransition } from "react";
 import { Spinner } from "../../ui/spinner";
 import { Button } from "../../ui/button";
 
-export interface CreateFavoriteModalComponentProps extends BaseModalComponentProps {}
+export interface CreateFavoriteModalComponentProps extends AbstractModalComponentProps {
+    symbol: string;
+}
 
-const ModalComponent = ({ isOpen, closeModal }: CreateFavoriteModalComponentProps) => {
+const CreateFavoriteModalComponent = ({
+    isOpen,
+    closeModal,
+    symbol,
+}: CreateFavoriteModalComponentProps) => {
     const [isPending, startTransition] = useTransition();
 
     const handleBookmark = () => {
@@ -36,8 +40,4 @@ const ModalComponent = ({ isOpen, closeModal }: CreateFavoriteModalComponentProp
     );
 };
 
-const CreateFavoriteModal = () => {
-    return <ModalWrapper modalKey={ModalKeys.CREATE_FAVOTITE} modalComponent={ModalComponent} />;
-};
-
-export default CreateFavoriteModal;
+export default CreateFavoriteModalComponent;

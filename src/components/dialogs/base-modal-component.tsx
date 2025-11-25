@@ -3,9 +3,15 @@
 import { ReactNode } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "../ui/dialog";
 import { ScrollArea } from "../ui/scroll-area";
-import { BaseModalComponentProps } from "./modal-wrapper";
+import { ModalKeys } from "./modal-keys";
 
-interface ResourceModalComponentProps extends BaseModalComponentProps {
+export interface AbstractModalComponentProps {
+    isOpen: boolean;
+    closeModal: () => void;
+    modalKey: ModalKeys;
+}
+
+interface BaseModalComponentProps extends Omit<AbstractModalComponentProps, "modalKey"> {
     children: ReactNode;
     title: string;
     description?: string;
@@ -17,7 +23,7 @@ function BaseModalComponent({
     children,
     title,
     description,
-}: ResourceModalComponentProps) {
+}: BaseModalComponentProps) {
     return (
         <Dialog open={isOpen} onOpenChange={(value) => value !== isOpen && !value && closeModal()}>
             <DialogContent className="grid max-h-[500px] grid-rows-[auto_minmax(0,1fr)] px-4">

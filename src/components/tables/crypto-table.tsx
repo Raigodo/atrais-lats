@@ -11,14 +11,16 @@ import {
     TableRow,
 } from "../ui/table";
 import { useModalManager } from "../dialogs/modal-manager-context-provider";
-import { isModuleNamespaceObject } from "util/types";
 import { ModalKeys } from "../dialogs/modal-keys";
 
 function CryptoTable({ items }: { items: CoinModel[] }) {
     const { openModal } = useModalManager();
 
     function onCoinClicked(coin: CoinModel) {
-        openModal({ key: ModalKeys.CREATE_FAVOTITE });
+        openModal({
+            key: ModalKeys.CREATE_FAVORITE,
+            bag: { symbol: coin.symbol },
+        });
     }
 
     return (
@@ -45,11 +47,9 @@ function CryptoTable({ items }: { items: CoinModel[] }) {
                         <TableCell>{Number(coin.price).toFixed(4)}</TableCell>
 
                         <TableCell
-                            className={
-                                coin.percent_change_1h < 0 ? "text-red-600" : "text-green-600"
-                            }
+                            className={coin.percentChange < 0 ? "text-red-600" : "text-green-600"}
                         >
-                            {Number(coin.percent_change_1h).toFixed(2)}%
+                            {Number(coin.percentChange).toFixed(2)}%
                         </TableCell>
 
                         <TableCell>{coin.isFavorite ? "★" : "☆"}</TableCell>

@@ -17,12 +17,15 @@ export const CoinMarketCap = {
 
         const currencies: Record<string, any>[] = ((await response.json()) as any).data;
 
+        const timestamp = new Date();
+
         const partialCoinList = currencies.map((coin) => ({
-            name: coin.name,
-            symbol: coin.symbol,
-            price: coin.quote.USD.price,
-            percent_change_1h: coin.quote.USD.percent_change_1h,
+            name: coin.name as string,
+            symbol: coin.symbol as string,
+            price: coin.quote.USD.price as number,
+            percentChange: coin.quote.USD.percent_change_1h as number,
             isFavorite: coin.symbol == "BTC" ? true : false,
+            timestamp: timestamp.toISOString(),
         }));
 
         return partialCoinList;

@@ -1,18 +1,23 @@
 "use client";
 
 import React, { createContext, useContext, useState } from "react";
-import CreateFavoriteModal, {
-    CreateFavoriteModalComponentProps,
-} from "./favorites/create-favorite";
-import EditFavoriteModal, { EditFavoriteModalComponentProps } from "./favorites/edit-favorite";
 import { ModalKeys } from "./modal-keys";
+import CreateFavoriteModalComponent from "./favorites/create-favorite";
+import EditFavoriteModalComponent from "./favorites/edit-favorite";
+import ModalWrapper from "./modal-wrapper";
 
-type KeyToModalComponentPropsMap = {
-    [ModalKeys.CREATE_FAVOTITE]: {} & CreateFavoriteModalComponentProps;
-    [ModalKeys.EDIT_FAVORITE]: {} & EditFavoriteModalComponentProps;
+const modalComponents = {
+    [ModalKeys.CREATE_FAVORITE]: CreateFavoriteModalComponent,
+    [ModalKeys.EDIT_FAVORITE]: EditFavoriteModalComponent,
 };
 
-type ModalComponentProps<T> = T extends unknown ? Omit<T, "closeModal" | "isOpen"> : never;
+type KeyToModalComponentPropsMap = {
+    [K in keyof typeof modalComponents]: Parameters<(typeof modalComponents)[K]>[0];
+};
+
+type ModalComponentProps<T> = T extends unknown
+    ? Omit<T, "closeModal" | "isOpen" | "modalKey">
+    : never;
 
 export type ModalPropsMap = {
     [K in keyof KeyToModalComponentPropsMap]: ModalComponentProps<KeyToModalComponentPropsMap[K]>;
@@ -28,7 +33,7 @@ type KeysWithoutProps = {
 }[keyof ModalPropsMap];
 
 //modal key and requred props for specific modal component
-export type CurrentModalSummary = {
+export type CurrentModalData = {
     [K in keyof ModalPropsMap]: {
         modalKey: K;
         props: ModalPropsMap[K];
@@ -49,7 +54,7 @@ export type OpenModalFunctionProps = Parameters<OpenModalFunction>[0];
 export type CloseModalFunction = () => void;
 
 interface ModalManagerContextType {
-    currentModal: CurrentModalSummary | null;
+    currentModal: CurrentModalData | null;
     openModal: OpenModalFunction;
     closeModal: CloseModalFunction;
 }
@@ -57,24 +62,10 @@ interface ModalManagerContextType {
 const ModalManagerContext = createContext<ModalManagerContextType | null>(null);
 
 const ModalManagerContextProvider = ({ children }: ModalManagerContextProviderProps) => {
-    // const router = useRouter();
-    // const searchParams = useSearchParams();
-
-    const [currentModal, setCurrentModal] = useState<CurrentModalSummary | null>(() => {
-        // const modalKey = searchParams.get("modal") as keyof ModalPropsMap;
-        // return modalKey && ({ modalKey } as CurrentModalSummary);
-        return null;
-    });
-
-    // useEffect(() => {
-    //     const newParams = new URLSearchParams(searchParams);
-    //     if (currentModal) newParams.set("modal", currentModal.modalKey);
-    //     else newParams.delete("modal");
-    //     router.push(`?${newParams.toString()}`, { scroll: false });
-    // }, [currentModal]);
+    const [currentModal, setCurrentModal] = useState<CurrentModalData | null>(null);
 
     const openModal: OpenModalFunction = (modal) => {
-        setCurrentModal({ modalKey: modal.key, props: modal.bag } as CurrentModalSummary);
+        setCurrentModal({ modalKey: modal.key, props: modal.bag } as CurrentModalData);
     };
 
     const closeModal: CloseModalFunction = () => {
@@ -84,8 +75,13 @@ const ModalManagerContextProvider = ({ children }: ModalManagerContextProviderPr
     return (
         <ModalManagerContext.Provider value={{ currentModal, closeModal, openModal }}>
             {children}
-            <CreateFavoriteModal />
-            <EditFavoriteModal />
+            {Object.entries(modalComponents).map(([modalKey, ModalComponent]) => (
+                <ModalWrapper
+                    key={modalKey}
+                    modalKey={modalKey as ModalKeys}
+                    modalComponent={ModalComponent as any}
+                />
+            ))}
         </ModalManagerContext.Provider>
     );
 };

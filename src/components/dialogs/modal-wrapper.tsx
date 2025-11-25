@@ -1,31 +1,16 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-import {
-    CurrentModalSummary,
-    ModalPropsMap,
-    useModalManager,
-} from "./modal-manager-context-provider";
+import React, { ComponentType, useEffect, useRef, useState } from "react";
+import { CurrentModalData, useModalManager } from "./modal-manager-context-provider";
+import { AbstractModalComponentProps } from "./base-modal-component";
+import { ModalKeys } from "./modal-keys";
 
-export interface BaseModalComponentProps {
-    isOpen: boolean;
-    closeModal: () => void;
-}
-
-type ModalComponent<K extends keyof ModalPropsMap> = React.ComponentType<
-    ModalPropsMap[K] & BaseModalComponentProps
->;
-
-type ModalComponentProps<K extends keyof ModalPropsMap> = ModalPropsMap[K] &
-    BaseModalComponentProps &
-    React.Attributes;
-
-export default function ModalWrapper<K extends keyof ModalPropsMap>({
+export default function ModalWrapper<K extends ModalKeys>({
     modalKey,
     modalComponent,
 }: {
     modalKey: K;
-    modalComponent: ModalComponent<K>;
+    modalComponent: ComponentType<AbstractModalComponentProps>;
 }) {
     const { currentModal, closeModal } = useModalManager();
     const [isOpen, setIsOpen] = useState(false);
@@ -52,9 +37,10 @@ export default function ModalWrapper<K extends keyof ModalPropsMap>({
         }
     }, [currentModal?.modalKey, modalKey, isOpen]);
 
-    const [cachedModalProps, setCachedModalProps] = useState<
-        CurrentModalSummary["props"] | undefined
-    >(undefined);
+    //to prevent undefined errors durning closing
+    const [cachedModalProps, setCachedModalProps] = useState<CurrentModalData["props"] | undefined>(
+        undefined
+    );
 
     useEffect(() => {
         if (isOpen && !cachedModalProps) setCachedModalProps(currentModal?.props);
@@ -69,7 +55,7 @@ export default function ModalWrapper<K extends keyof ModalPropsMap>({
         ...(currentModal?.props ?? cachedModalProps),
         isOpen,
         closeModal: handleCloseModal,
-    } as ModalComponentProps<K>;
+    } as AbstractModalComponentProps;
 
     return (
         <div className="hidden">
