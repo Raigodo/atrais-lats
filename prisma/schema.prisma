@@ -11,7 +11,6 @@ generator client {
 
 datasource db {
   	provider = "postgresql"
-  	url      = env("DATABASE_URL")
 }
 
 model User {
@@ -34,11 +33,12 @@ model OAuthUsers {
 }
 
 model CryptoCoin {
-  	symbol          String    				@id
+  	symbol          String 					@id
   	price           Float
   	name            String
   	percentChange   Float
-		
+	timestamp	   	DateTime                @default(now())
+	
 	favorites       FavoriteCryptoCoin[]
 }
 
@@ -47,6 +47,7 @@ model FavoriteCryptoCoin {
   	userId		    String
   	min             Float
   	max             Float
+	timestamp	   	DateTime                @default(now())
 
 	coin			CryptoCoin             	@relation(fields: [symbol], references: [symbol])
   	user            User                    @relation(fields: [userId], references: [id])

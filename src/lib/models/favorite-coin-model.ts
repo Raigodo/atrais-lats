@@ -5,4 +5,5 @@ export type FavoriteCoinModel = {
     percentChange: number;
     min: number;
     max: number;
+    timestamp: string;
 };

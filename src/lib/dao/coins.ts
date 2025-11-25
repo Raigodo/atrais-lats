@@ -1,13 +1,10 @@
-import { cacheLife, cacheTag } from "next/cache";
-import { FavoriteCoinModel } from "../models/favorite-coin-model";
+import { cacheLife, cacheTag, revalidateTag } from "next/cache";
 import { CoinModel } from "../models/coin-model";
 import { CoinMarketCap } from "../external-api/coin-market-cap";
-import { PrismaClient } from "@/generated/prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "../clients/prisma";
 
 export const Coins = {
-    getLatestListings: async (): Promise<CoinModel[]> => {
+    all: async (): Promise<CoinModel[]> => {
         "use cache";
         cacheTag("coins");
         cacheLife({ revalidate: 360 });
@@ -17,23 +14,19 @@ export const Coins = {
         return currencies;
     },
 
-    getFavoriteCoins: async (userId: string): Promise<FavoriteCoinModel[]> => {
-        "use cache";
-        cacheTag("users");
-        cacheTag("coins");
-        cacheTag(`favorite-coins:${userId}`);
-
-        const userFavorites = await prisma.favoriteCryptoCoin.findMany({
-            where: {
-                userId,
-            },
-            include: { coin: true },
-        });
-
-        return userFavorites.map((favorite) => ({
-            ...favorite.coin,
-            min: favorite.min,
-            max: favorite.max,
-        }));
+    updateAll: async (coins: CoinModel[]) => {
+        return prisma
+            .$transaction([
+                prisma.$executeRawUnsafe(`
+                    INSERT INTO "CryptoCoin" (symbol, price, "percentChange", name)
+                    VALUES ${coins.map((c) => `('${c.symbol}', ${c.price}, ${c.percentChange}, '${c.name}')`).join(",")}
+                    ON CONFLICT (symbol) DO UPDATE SET
+                        price = EXCLUDED.price,
+                        "percentChange" = EXCLUDED."percentChange",
+                `),
+            ])
+            .then(() => {
+                revalidateTag("coins", "max");
+            });
     },
 };

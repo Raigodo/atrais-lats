@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import "dotenv/config";
 import { Users } from "./dao/users";
+import { OAuthUsers } from "./dao/oauth-user";
 
 const authHandler = NextAuth({
     providers: [
@@ -16,7 +17,7 @@ const authHandler = NextAuth({
             return session;
         },
         jwt: async ({ token, account }) => {
-            const user = await Users.findByOAuth(account?.provider!, account?.userId!);
+            const user = await OAuthUsers.find(account?.provider!, account?.userId!);
             if (user) token.uid = user.id;
             return token;
         },
@@ -24,14 +25,14 @@ const authHandler = NextAuth({
             if (!account) return false;
 
             const exists = true;
-            console.log(await Users.existsByOAuth(account.provider, user.id));
+            console.log(await OAuthUsers.exists(account.provider, user.id));
 
             console.log(account.provider, user.id);
 
             if (!exists && account) {
                 let success = true;
 
-                await Users.createOAuthUser({
+                await OAuthUsers.create({
                     provider: account.provider,
                     providerUserId: user.id,
                     name: user.name || `user:${user.id}`,

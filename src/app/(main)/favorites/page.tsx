@@ -2,10 +2,10 @@
 
 import Pagination from "@/src/components/page/pagination";
 import FavoriteCryptoTable from "@/src/components/tables/favorite-crypto-table";
-import { Coins } from "@/src/lib/dao/coins";
+import { FavoriteCoins } from "@/src/lib/dao/favorite-coin";
 
 async function Page() {
-    const cryptoList = await Coins.getFavoriteCoins("user id");
+    const cryptoList = await FavoriteCoins.all("user id");
 
     return (
         <div className="flex items-center justify-center p-8">
