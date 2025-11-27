@@ -1,41 +1,29 @@
-"use client";
-
 import BaseModalComponent, { AbstractModalComponentProps } from "../base-modal-component";
-import { toggleBookmark } from "./favorite-actions";
-import { useTransition } from "react";
-import { Spinner } from "../../ui/spinner";
-import { Button } from "../../ui/button";
+import CreateFavoriteCoinForm from "../../form/forms/create-favorite-coin-form";
 
 export interface CreateFavoriteModalComponentProps extends AbstractModalComponentProps {
+    price: number;
+    name: string;
     symbol: string;
 }
 
 const CreateFavoriteModalComponent = ({
     isOpen,
     closeModal,
+    price,
+    name,
     symbol,
 }: CreateFavoriteModalComponentProps) => {
-    const [isPending, startTransition] = useTransition();
-
-    const handleBookmark = () => {
-        startTransition(async () => {
-            await toggleBookmark(new FormData());
-            closeModal();
-        });
-    };
+    "use client";
 
     return (
         <BaseModalComponent
             isOpen={isOpen}
             closeModal={closeModal}
-            title="Sometitle"
-            description="Some description"
+            title="Create Favorite"
+            description={`Create ${name} Price Alerts`}
         >
-            <form action={handleBookmark}>
-                <Button type="submit" disabled={isPending}>
-                    {isPending ? <Spinner /> : "submit"}
-                </Button>
-            </form>
+            <CreateFavoriteCoinForm price={price} name={name} symbol={symbol} />
         </BaseModalComponent>
     );
 };

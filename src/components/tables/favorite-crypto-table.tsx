@@ -1,3 +1,5 @@
+import { ModalKeys } from "../dialogs/modal-keys";
+import { useModalManager } from "../dialogs/modal-manager-context-provider";
 import {
     Table,
     TableBody,
@@ -10,6 +12,21 @@ import {
 import { FavoriteCoinModel } from "@/src/lib/models/favorite-coin-model";
 
 function FavoriteCryptoTable({ items }: { items: FavoriteCoinModel[] }) {
+    const { openModal } = useModalManager();
+
+    function onCoinClicked(coin: FavoriteCoinModel) {
+        openModal({
+            key: ModalKeys.EDIT_FAVORITE,
+            bag: {
+                price: coin.price,
+                name: coin.name,
+                symbol: coin.symbol,
+                min: coin.min,
+                max: coin.max,
+            },
+        });
+    }
+
     return (
         <Table>
             <TableCaption>Tavu favorītu saraksts</TableCaption>
@@ -26,23 +43,23 @@ function FavoriteCryptoTable({ items }: { items: FavoriteCoinModel[] }) {
             </TableHeader>
 
             <TableBody>
-                {items.map((crypto, index) => (
-                    <TableRow key={crypto.symbol ?? index}>
-                        <TableCell>{crypto.name}</TableCell>
+                {items.map((coin, index) => (
+                    <TableRow key={coin.symbol ?? index} onClick={() => onCoinClicked(coin)}>
+                        <TableCell>{coin.name}</TableCell>
 
-                        <TableCell>{crypto.symbol}</TableCell>
+                        <TableCell>{coin.symbol}</TableCell>
 
-                        <TableCell>{Number(crypto.price).toFixed(4)}</TableCell>
+                        <TableCell>{Number(coin.price).toFixed(4)}</TableCell>
 
                         <TableCell
-                            className={crypto.percentChange < 0 ? "text-red-600" : "text-green-600"}
+                            className={coin.percentChange < 0 ? "text-red-600" : "text-green-600"}
                         >
-                            {Number(crypto.percentChange).toFixed(2)}%
+                            {Number(coin.percentChange).toFixed(2)}%
                         </TableCell>
 
-                        <TableCell>{crypto.min}</TableCell>
+                        <TableCell>{coin.min}</TableCell>
 
-                        <TableCell>{crypto.max}</TableCell>
+                        <TableCell>{coin.max}</TableCell>
                     </TableRow>
                 ))}
             </TableBody>

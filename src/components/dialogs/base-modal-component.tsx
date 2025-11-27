@@ -32,7 +32,12 @@ function BaseModalComponent({
                     <DialogDescription>{description}</DialogDescription>
                 </DialogHeader>
 
-                <ScrollArea className="mt-2 px-3">{children}</ScrollArea>
+                <ScrollArea
+                    className="mt-2 px-2"
+                    viewportClassName="w-[calc(100%+32px)] -mx-4 px-4"
+                >
+                    {children}
+                </ScrollArea>
             </DialogContent>
         </Dialog>
     );

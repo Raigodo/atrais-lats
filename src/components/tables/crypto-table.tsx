@@ -19,7 +19,7 @@ function CryptoTable({ items }: { items: CoinModel[] }) {
     function onCoinClicked(coin: CoinModel) {
         openModal({
             key: ModalKeys.CREATE_FAVORITE,
-            bag: { symbol: coin.symbol },
+            bag: { price: coin.price, name: coin.name, symbol: coin.symbol },
         });
     }
 

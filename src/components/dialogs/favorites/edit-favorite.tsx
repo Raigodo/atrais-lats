@@ -1,16 +1,31 @@
+import EditFavoriteCoinForm from "../../form/forms/edit-favorite-coin-form";
 import BaseModalComponent, { AbstractModalComponentProps } from "../base-modal-component";
 
-export interface EditFavoriteModalComponentProps extends AbstractModalComponentProps {}
+export interface EditFavoriteModalComponentProps extends AbstractModalComponentProps {
+    price: number;
+    name: string;
+    min: number;
+    max: number;
+    symbol: string;
+}
 
-const EditFavoriteModalComponent = ({ isOpen, closeModal }: EditFavoriteModalComponentProps) => {
+const EditFavoriteModalComponent = ({
+    isOpen,
+    closeModal,
+    price,
+    name,
+    min,
+    max,
+    symbol,
+}: EditFavoriteModalComponentProps) => {
     return (
         <BaseModalComponent
             isOpen={isOpen}
             closeModal={closeModal}
-            title="Sometitle"
-            description="Some description"
+            title="Edit Favorite"
+            description={`Edit ${name} Price Alerts`}
         >
-            Hello
+            <EditFavoriteCoinForm price={price} name={name} symbol={symbol} min={min} max={max} />
         </BaseModalComponent>
     );
 };
