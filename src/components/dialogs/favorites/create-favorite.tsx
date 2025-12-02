@@ -14,8 +14,6 @@ const CreateFavoriteModalComponent = ({
     name,
     symbol,
 }: CreateFavoriteModalComponentProps) => {
-    "use client";
-
     return (
         <BaseModalComponent
             isOpen={isOpen}
@@ -23,7 +21,12 @@ const CreateFavoriteModalComponent = ({
             title="Create Favorite"
             description={`Create ${name} Price Alerts`}
         >
-            <CreateFavoriteCoinForm price={price} name={name} symbol={symbol} />
+            <CreateFavoriteCoinForm
+                price={price}
+                name={name}
+                symbol={symbol}
+                onSubmitted={closeModal}
+            />
         </BaseModalComponent>
     );
 };

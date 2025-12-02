@@ -1,3 +1,5 @@
+"use client";
+
 import { ModalKeys } from "../dialogs/modal-keys";
 import { useModalManager } from "../dialogs/modal-manager-context-provider";
 import {

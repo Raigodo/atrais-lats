@@ -4,11 +4,18 @@ import { prisma } from "../clients/prisma";
 
 export const Users = {
     exists: async (id: string) => {
-        "use cache";
-        cacheTag("users");
-        cacheTag(`users:${id}`);
+        // "use cache";
+        // cacheTag("users");
+        // cacheTag(`users:${id}`);
 
         return prisma.user.findUnique({ where: { id } }).then((value) => !!value);
+    },
+    findById: async (id: string) => {
+        // "use cache";
+        // cacheTag("users");
+        // cacheTag(`users:${id}`);
+
+        return prisma.user.findUnique({ where: { id } });
     },
 
     create: async ({ name, email }: { name: string; email?: string }) => {

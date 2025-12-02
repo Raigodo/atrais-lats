@@ -3,9 +3,11 @@
 import Pagination from "@/src/components/page/pagination";
 import FavoriteCryptoTable from "@/src/components/tables/favorite-crypto-table";
 import { FavoriteCoins } from "@/src/lib/dao/favorite-coin";
+import { getServerSession } from "next-auth";
 
 async function Page() {
-    const cryptoList = await FavoriteCoins.all("user id");
+    const session = await getServerSession();
+    const cryptoList = await FavoriteCoins.all(session?.user.email!);
 
     return (
         <div className="flex items-center justify-center p-8">

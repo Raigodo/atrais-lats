@@ -25,7 +25,14 @@ const EditFavoriteModalComponent = ({
             title="Edit Favorite"
             description={`Edit ${name} Price Alerts`}
         >
-            <EditFavoriteCoinForm price={price} name={name} symbol={symbol} min={min} max={max} />
+            <EditFavoriteCoinForm
+                price={price}
+                name={name}
+                symbol={symbol}
+                min={min}
+                max={max}
+                onSubmitted={closeModal}
+            />
         </BaseModalComponent>
     );
 };

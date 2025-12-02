@@ -3,8 +3,6 @@ import { CoinModel } from "../models/coin-model";
 
 export const CoinMarketCap = {
     getLatestCoinListings: async (): Promise<CoinModel[]> => {
-        console.log("FETCHING FROM EXTERNALAPI!");
-
         const response = await fetch(
             "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?limit=20",
             {

@@ -9,7 +9,8 @@ import {
     CompactFormRow,
     CompactFormSection,
 } from "../layout/compact-form-layout";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 
 interface EditFavoriteCoinFormProps {
     name: string;
@@ -17,13 +18,25 @@ interface EditFavoriteCoinFormProps {
     symbol: string;
     min: number;
     max: number;
+    onSubmitted?: () => void;
 }
 
-function EditFavoriteCoinForm({ name, price, symbol, min, max }: EditFavoriteCoinFormProps) {
+function EditFavoriteCoinForm({
+    name,
+    price,
+    symbol,
+    min,
+    max,
+    onSubmitted,
+}: EditFavoriteCoinFormProps) {
     const [state, formAction, isPending] = useActionState(editFavoriteAction, {
         success: false,
         errors: {},
     });
+
+    useEffect(() => {
+        if (state.success === true) onSubmitted?.();
+    }, [state]);
 
     const processedPrice = Number(price.toFixed(4));
 
@@ -41,10 +54,10 @@ function EditFavoriteCoinForm({ name, price, symbol, min, max }: EditFavoriteCoi
             <CompactFormSection label="Set Price Alerts">
                 <CompactFormRow>
                     <CompactFormField label="Min Price">
-                        <InputNumber name="min" defaultValue={min} />
+                        <InputNumber name="min" defaultValue={min} step={0.0001} />
                     </CompactFormField>
                     <CompactFormField label="Max Price">
-                        <InputNumber name="max" defaultValue={max} />
+                        <InputNumber name="max" defaultValue={max} step={0.0001} />
                     </CompactFormField>
                 </CompactFormRow>
             </CompactFormSection>

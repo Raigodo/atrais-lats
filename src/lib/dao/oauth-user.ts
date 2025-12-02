@@ -4,9 +4,9 @@ import { prisma } from "../clients/prisma";
 
 export const OAuthUsers = {
     exists: async (provider: string, providerUserId: string) => {
-        "use cache";
-        cacheTag("users");
-        cacheTag(`users:${provider}_${providerUserId}`);
+        // "use cache";
+        // cacheTag("users");
+        // cacheTag(`users:${provider}_${providerUserId}`);
 
         return prisma.oAuthUsers
             .findFirst({
@@ -17,9 +17,9 @@ export const OAuthUsers = {
     },
 
     find: async (provider: string, providerUserId: string) => {
-        "use cache";
-        cacheTag("users");
-        cacheTag(`users:${provider}_${providerUserId}`);
+        // "use cache";
+        // cacheTag("users");
+        // cacheTag(`users:${provider}_${providerUserId}`);
 
         return prisma.oAuthUsers
             .findFirst({

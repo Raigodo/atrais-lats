@@ -1,64 +1,47 @@
 "use client";
 
 import { Button } from "@/src/components/ui/button";
-import { cn } from "@/src/lib/utils";
 import Link from "next/link";
-import { useState } from "react";
 import { GithubIcon } from "lucide-react";
-import { loginAction } from "./login-handler";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
+import LoginForm from "@/src/components/form/forms/login-form";
 
 function Page() {
-    async function handleExternalLogin(provider: string) {
-        await signIn(provider);
-    }
-
-    async function handleLogin() {
-        await loginAction(new FormData());
-    }
-
-    const [username, setUsername] = useState<string | undefined>("");
-    const [password, setPassword] = useState<string | undefined>("");
-
     return (
         <main className="h-screen grid place-items-center bg-background2 p-8">
-            <div className="relative w-full max-w-[1020px] h-[640px] bg-background rounded-4xl shadow-[0_60px_40px_-30px_rgba(0,0,0,0.27)]">
-                <div className="p-16 h-full grid grid-cols-[auto_1fr] gap-16">
-                    <form
-                        action={handleLogin}
-                        className="max-w-[260px] w-full flex flex-col justify-evenly h-full mx-auto"
-                        autoComplete="off"
-                    >
+            <div className="relative w-full max-w-[1020px] h-fit bg-background rounded-4xl shadow-[0_60px_40px_-30px_rgba(0,0,0,0.27)]">
+                <div className="h-full grid grid-cols-[2fr_3fr]">
+                    <div className="px-16 py-12 flex flex-col justify-between h-full">
                         <div className="flex items-center">
                             <img src="/logo1.png" alt="Ātrais Lats" className="size-16 mr-1" />
                             <h4 className="text-xl font-semibold">Ātrais Lats</h4>
                         </div>
 
-                        <div>
-                            <h2 className="text-4xl font-semibold">Laipni lūgts atpakaļ</h2>
+                        <div className="mt-8">
+                            <h2 className="text-4xl font-semibold mb-2">Laipni lūgts atpakaļ</h2>
                             <h6 className="text-gray-400 text-xs inline">Jauns lietotājs? </h6>
                             <Link
-                                href="/register"
+                                href="/auth/register"
                                 className="text-xs font-medium hover:text-indigo-600 transition"
                             >
                                 Reģistrēties
                             </Link>
                         </div>
 
-                        <div className="flex gap-x-4">
+                        <div className="flex gap-x-4 my-4">
                             <Button
                                 type="button"
-                                size={"icon"}
+                                size={"icon-lg"}
                                 variant={"ghost"}
-                                onClick={() => handleExternalLogin("github")}
+                                onClick={() => signIn("github")}
                             >
                                 <GithubIcon />
                             </Button>
                             <Button
                                 type="button"
-                                size={"icon"}
+                                size={"icon-lg"}
                                 variant={"ghost"}
-                                onClick={() => handleExternalLogin("google")}
+                                onClick={() => signIn("google")}
                             >
                                 <svg viewBox="0 0 48 48" className="block">
                                     <path
@@ -80,81 +63,14 @@ function Page() {
                                     <path fill="none" d="M0 0h48v48H0z"></path>
                                 </svg>
                             </Button>
-                            <Button
-                                type="button"
-                                size={"icon"}
-                                variant={"ghost"}
-                                onClick={() => signOut()}
-                            >
-                                Sign Out
-                            </Button>
                         </div>
 
-                        <div>
-                            <div className="mb-8">
-                                <label
-                                    className={cn(
-                                        "text-gray-400 transition-all duration-300",
-                                        username && "text-xs"
-                                    )}
-                                >
-                                    Lietotājvārds
-                                </label>
-                                <input
-                                    type="text"
-                                    value={username}
-                                    onChange={(e) => {
-                                        setUsername(e.target.value);
-                                    }}
-                                    required
-                                    minLength={4}
-                                    className={cn(
-                                        "w-full bg-transparent border-0 border-b border-gray-400 text-sm outline-none transition duration-300",
-                                        username && "border-foreground"
-                                    )}
-                                />
-                            </div>
+                        <LoginForm />
+                    </div>
 
-                            <div className="mb-8">
-                                <label
-                                    className={cn(
-                                        "text-gray-400 transition-all duration-300",
-                                        password && "text-xs"
-                                    )}
-                                >
-                                    Parole
-                                </label>
-                                <input
-                                    type="password"
-                                    value={password}
-                                    onChange={(e) => {
-                                        setPassword(e.target.value);
-                                    }}
-                                    required
-                                    minLength={4}
-                                    className={cn(
-                                        "w-full bg-transparent border-0 border-b border-gray-400 text-sm outline-none transition duration-300",
-                                        password && "border-foreground"
-                                    )}
-                                />
-                            </div>
-
-                            <Button
-                                type="submit"
-                                className="w-full h-[43px] text-white rounded-lg text-sm hover:bg-indigo-600 transition"
-                            >
-                                Pieslēgties
-                            </Button>
-                        </div>
-                    </form>
-
-                    <div className="rounded-3xl grid overflow-hidden transition-all duration-700 ease-in-out">
-                        <div className="flex items-center justify-center overflow-hidden">
-                            <img
-                                src="/slider1.png"
-                                alt="bilde1"
-                                className="object-cover w-full h-full"
-                            />
+                    <div className="relative rounded-3xl grid overflow-hidden transition-all duration-700 ease-in-out">
+                        <div className="flex absolute top-0 bottom-0 right-0 left-0 items-center justify-center overflow-hidden">
+                            <img src="/slider1.png" alt="bilde1" className="object-cover" />
                         </div>
                     </div>
                 </div>

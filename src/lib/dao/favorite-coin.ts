@@ -3,11 +3,35 @@ import { FavoriteCoinModel } from "../models/favorite-coin-model";
 import { prisma } from "../clients/prisma";
 
 export const FavoriteCoins = {
+    exists: async (userId: string, symbol: string) => {
+        // "use cache";
+        // cacheTag("users");
+        // cacheTag("coins");
+        // cacheTag(`favorite-coins:${userId}`);
+
+        return prisma.favoriteCryptoCoin
+            .findFirst({
+                where: { userId, symbol },
+            })
+            .then((result) => !!result);
+    },
+
+    findById: async (userId: string, symbol: string) => {
+        // "use cache";
+        // cacheTag("users");
+        // cacheTag("coins");
+        // cacheTag(`favorite-coins:${userId}`);
+
+        return prisma.favoriteCryptoCoin.findFirst({
+            where: { userId, symbol },
+        });
+    },
+
     all: async (userId: string): Promise<FavoriteCoinModel[]> => {
-        "use cache";
-        cacheTag("users");
-        cacheTag("coins");
-        cacheTag(`favorite-coins:${userId}`);
+        // "use cache";
+        // cacheTag("users");
+        // cacheTag("coins");
+        // cacheTag(`favorite-coins:${userId}`);
 
         const userFavorites = await prisma.favoriteCryptoCoin.findMany({
             where: {
@@ -34,7 +58,14 @@ export const FavoriteCoins = {
         min: number;
         max: number;
     }) => {
-        prisma.favoriteCryptoCoin.create({
+        console.log({
+            symbol,
+            userId,
+            min,
+            max,
+        });
+
+        return prisma.favoriteCryptoCoin.create({
             data: {
                 symbol,
                 userId,

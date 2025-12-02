@@ -9,20 +9,25 @@ import {
     CompactFormRow,
     CompactFormSection,
 } from "../layout/compact-form-layout";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 
 interface CreateFavoriteCoinFormProps {
     symbol: string;
     name: string;
     price: number;
+    onSubmitted?: () => void;
 }
 
-function CreateFavoriteCoinForm({ name, price, symbol }: CreateFavoriteCoinFormProps) {
+function CreateFavoriteCoinForm({ name, price, symbol, onSubmitted }: CreateFavoriteCoinFormProps) {
     const processedPrice = Number(price.toFixed(4));
     const [state, formAction, isPending] = useActionState(createFavoriteAction, {
         success: false,
         errors: {},
     });
+
+    useEffect(() => {
+        if (state.success === true) onSubmitted?.();
+    }, [state]);
 
     return (
         <CompactForm action={formAction}>

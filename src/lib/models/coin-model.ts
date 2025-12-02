@@ -4,5 +4,5 @@ export type CoinModel = {
     price: number;
     percentChange: number;
     isFavorite: boolean;
-    timestamp: string;
+    timestamp: Date;
 };

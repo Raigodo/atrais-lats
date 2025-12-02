@@ -7,10 +7,10 @@ import { Coins } from "@/src/lib/dao/coins";
 export async function GET(request: Request) {
     console.log("Cron job");
 
-    const authHeader = request.headers.get("Authorization");
-    if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    // const authHeader = request.headers.get("Authorization");
+    // if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+    //     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    // }
 
     const latestCoins = await CoinMarketCap.getLatestCoinListings();
     await Coins.updateAll(latestCoins);

@@ -1,14 +1,12 @@
-"use client";
-
 import { cn } from "@/src/lib/utils";
-import { Button } from "../ui/button";
-import { signIn } from "next-auth/react";
+import { buttonVariants } from "../ui/button";
+import Link from "next/link";
 
 function LoginButton({ className }: { className?: string }) {
     return (
-        <Button className={cn("hover:cursor-pointer", className)} onClick={() => signIn("github")}>
+        <Link className={cn(buttonVariants(), className)} href={"/auth/login"}>
             Pieslēgties
-        </Button>
+        </Link>
     );
 }
 
