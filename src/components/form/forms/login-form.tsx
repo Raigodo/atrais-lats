@@ -4,7 +4,7 @@ import { Button } from "../../ui/button";
 function LoginForm() {
     return (
         <form
-            action={loginAction}
+            // action={loginAction}
             className="w-full flex flex-col h-full mx-auto"
             autoComplete="off"
         >

@@ -4,7 +4,7 @@ import { Button } from "../../ui/button";
 function RegisterForm() {
     return (
         <form
-            action={registerAction}
+            // action={registerAction}
             className="w-full flex flex-col justify-evenly mx-auto"
             autoComplete="off"
         >

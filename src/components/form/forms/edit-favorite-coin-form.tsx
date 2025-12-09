@@ -9,8 +9,9 @@ import {
     CompactFormRow,
     CompactFormSection,
 } from "../layout/compact-form-layout";
-import { useActionState, useEffect } from "react";
-import { useSession } from "next-auth/react";
+import { useActionState, useEffect, useState, useTransition } from "react";
+import { deleteFavoriteAction } from "@/src/lib/actions/delete-favorite-action";
+import SubmitButton from "../buttons/submit-button";
 
 interface EditFavoriteCoinFormProps {
     name: string;
@@ -29,19 +30,42 @@ function EditFavoriteCoinForm({
     max,
     onSubmitted,
 }: EditFavoriteCoinFormProps) {
-    const [state, formAction, isPending] = useActionState(editFavoriteAction, {
+    const [formState, setFormState] = useState({
+        min,
+        max,
+    });
+
+    const [editState, editAction] = useActionState(editFavoriteAction, {
         success: false,
         errors: {},
     });
 
     useEffect(() => {
-        if (state.success === true) onSubmitted?.();
-    }, [state]);
+        if (editState.success === true) onSubmitted?.();
+    }, [editState]);
+
+    const [deletePending, startDeleteTransition] = useTransition();
 
     const processedPrice = Number(price.toFixed(4));
 
     return (
-        <CompactForm action={formAction}>
+        <CompactForm
+            action={editAction}
+            renderAdditionalButton={
+                <SubmitButton
+                    type="button"
+                    pending={deletePending}
+                    onClick={() =>
+                        startDeleteTransition(
+                            async () =>
+                                await deleteFavoriteAction(symbol).then(() => onSubmitted?.())
+                        )
+                    }
+                >
+                    Delete
+                </SubmitButton>
+            }
+        >
             <input type="hidden" name="symbol" value={symbol} />
 
             <CompactFormSection label="Cryptocurrency Info">
@@ -54,10 +78,20 @@ function EditFavoriteCoinForm({
             <CompactFormSection label="Set Price Alerts">
                 <CompactFormRow>
                     <CompactFormField label="Min Price">
-                        <InputNumber name="min" defaultValue={min} step={0.0001} />
+                        <InputNumber
+                            name="min"
+                            value={formState.min}
+                            message={editState.errors.min}
+                            onChange={(value) => setFormState({ ...formState, min: value })}
+                        />
                     </CompactFormField>
                     <CompactFormField label="Max Price">
-                        <InputNumber name="max" defaultValue={max} step={0.0001} />
+                        <InputNumber
+                            name="max"
+                            value={formState.max}
+                            message={editState.errors.max}
+                            onChange={(value) => setFormState({ ...formState, max: value })}
+                        />
                     </CompactFormField>
                 </CompactFormRow>
             </CompactFormSection>

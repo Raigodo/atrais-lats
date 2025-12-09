@@ -1,4 +1,3 @@
-import { cacheTag } from "next/cache";
 import { FavoriteCoinModel } from "../models/favorite-coin-model";
 import { prisma } from "../clients/prisma";
 

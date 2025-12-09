@@ -5,7 +5,7 @@ import { BaseFormInputProps } from "../base-form-input-props";
 import { cn } from "@/src/lib/utils";
 
 interface InputNumberProps
-    extends Omit<InputProps, "onChange" | "value" | "defaultValue" | "name">,
+    extends Omit<InputProps, "onChange" | "value" | "name">,
         BaseFormInputProps<number> {
     units?: string | null;
 }
@@ -38,28 +38,29 @@ function FormInput({
     name,
     ...rest
 }: FormInputProps) {
-    // const [value, setValue] = useState(`${numericValue}`);
+    const [value, setValue] = useState(`${numericValue}`);
 
-    // function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    //     const cleaned = (e.target as HTMLInputElement).value;
-    //     setValue(cleaned);
-    //     const numericValue = cleaned ? parseFloat(cleaned) : 0;
-    //     onChange?.(numericValue);
-    // }
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const cleaned = (e.target as HTMLInputElement).value;
+        setValue(cleaned);
+        const numericValue = cleaned ? parseFloat(cleaned) : 0;
+        console.log(cleaned, numericValue);
+        onChange?.(numericValue);
+    }
 
-    // const handleBlur = () => {
-    //     const cleaned = String(Number(value));
-    //     const numericValue = value ? parseFloat(cleaned) : 0;
-    //     setValue(numericValue.toString());
-    // };
+    const handleBlur = () => {
+        const cleaned = String(Number(value));
+        const numericValue = value ? parseFloat(cleaned) : 0;
+        setValue(numericValue.toString());
+    };
 
     return (
         <div className="relative h-fit">
             <Input
                 name={name}
-                // value={numericValue && value}
-                // onChange={handleChange}
-                // onBlur={handleBlur}
+                value={value}
+                onChange={handleChange}
+                onBlur={handleBlur}
                 className={cn(
                     "h-8 w-full [appearance:textfield] pr-14 shadow-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none",
                     className

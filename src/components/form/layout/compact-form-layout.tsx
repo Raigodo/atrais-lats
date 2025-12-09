@@ -8,10 +8,10 @@ import { inputVariants } from "../../ui/input";
 type CompactFormProps = BaseFormProps & {
     children: ReactNode;
     className?: string;
-    renderCancelButton?: ReactNode;
+    renderAdditionalButton?: ReactNode;
 };
 
-function CompactForm({ action, children, className, renderCancelButton }: CompactFormProps) {
+function CompactForm({ action, children, className, renderAdditionalButton }: CompactFormProps) {
     return (
         <form
             action={action}
@@ -19,7 +19,7 @@ function CompactForm({ action, children, className, renderCancelButton }: Compac
         >
             <div className="space-y-6 w-full">{children}</div>
             <div className="mt-2 flex justify-end gap-x-4">
-                {renderCancelButton}
+                {renderAdditionalButton}
                 <SubmitButton className="min-w-[20%] shadow-md">Submit</SubmitButton>
             </div>
         </form>

@@ -4,7 +4,7 @@ import ModalMessage from "../../ui/modal-message";
 import { BaseFormInputProps } from "../base-form-input-props";
 
 interface InputLineProps
-    extends Omit<InputProps, "onChange" | "value" | "defaultValue" | "name">,
+    extends Omit<InputProps, "onChange" | "value" | "name">,
         BaseFormInputProps<string> {}
 
 function InputLine({ message, className, ...rest }: InputLineProps) {

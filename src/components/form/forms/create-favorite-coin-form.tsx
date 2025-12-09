@@ -9,7 +9,7 @@ import {
     CompactFormRow,
     CompactFormSection,
 } from "../layout/compact-form-layout";
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useState } from "react";
 
 interface CreateFavoriteCoinFormProps {
     symbol: string;
@@ -20,6 +20,11 @@ interface CreateFavoriteCoinFormProps {
 
 function CreateFavoriteCoinForm({ name, price, symbol, onSubmitted }: CreateFavoriteCoinFormProps) {
     const processedPrice = Number(price.toFixed(4));
+    const [formState, setFormState] = useState({
+        min: Number((processedPrice * 0.9).toFixed(4)),
+        max: Number((processedPrice * 1.1).toFixed(4)),
+    });
+
     const [state, formAction, isPending] = useActionState(createFavoriteAction, {
         success: false,
         errors: {},
@@ -45,13 +50,17 @@ function CreateFavoriteCoinForm({ name, price, symbol, onSubmitted }: CreateFavo
                     <CompactFormField label="Min Price">
                         <InputNumber
                             name="min"
-                            defaultValue={Number((processedPrice * 0.9).toFixed(4))}
+                            value={formState.min}
+                            message={state.errors.min}
+                            onChange={(value) => setFormState({ ...formState, min: value })}
                         />
                     </CompactFormField>
                     <CompactFormField label="Max Price">
                         <InputNumber
                             name="max"
-                            defaultValue={Number((processedPrice * 1.1).toFixed(4))}
+                            value={formState.max}
+                            message={state.errors.max}
+                            onChange={(value) => setFormState({ ...formState, max: value })}
                         />
                     </CompactFormField>
                 </CompactFormRow>

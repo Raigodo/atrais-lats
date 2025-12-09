@@ -1,4 +1,7 @@
+"use server";
+
 import { redirect } from "next/navigation";
+import { createSuccessResponse } from "../helper/response";
 
 export async function registerAction(formData: FormData) {
     const name = formData.get("name");
@@ -7,4 +10,6 @@ export async function registerAction(formData: FormData) {
     console.log("Form submitted:", { name, email });
 
     redirect("/currencies");
+
+    return createSuccessResponse();
 }
