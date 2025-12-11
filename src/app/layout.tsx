@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
-import "./globals.css";
 import type { Metadata } from "next";
+import "./globals.css";
 
 export const metadata: Metadata = {
     title: "Atrais Lats",
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 async function Layout({ children }: { children: ReactNode }) {
     return (
         <html lang="en">
-            <body className="bg-background">{children}</body>
+            <body>{children}</body>
         </html>
     );
 }

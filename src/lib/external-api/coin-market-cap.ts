@@ -23,7 +23,7 @@ export const CoinMarketCap = {
             price: coin.quote.USD.price as number,
             percentChange: coin.quote.USD.percent_change_1h as number,
             isFavorite: coin.symbol == "BTC" ? true : false,
-            timestamp: timestamp.toISOString(),
+            timestamp: timestamp,
         }));
 
         return partialCoinList;

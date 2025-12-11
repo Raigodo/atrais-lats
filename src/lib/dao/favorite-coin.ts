@@ -105,4 +105,30 @@ export const FavoriteCoins = {
             },
         });
     },
+
+    allToNotiffy: async () => {
+        return prisma.$queryRaw<
+            {
+                userId: string;
+                min: number;
+                max: number;
+                price: number;
+                symbol: string;
+                name: string;
+            }[]
+        >`
+            SELECT 
+                f."userId",
+                f.min,
+                f.max,
+                c.price,
+                c.symbol,
+                c.name
+            FROM "FavoriteCryptoCoin" f
+            INNER JOIN "CryptoCoin" c 
+                ON c."symbol" = f."symbol"
+            WHERE c.price < f.min
+                OR c.price > f.max;
+            `;
+    },
 };
