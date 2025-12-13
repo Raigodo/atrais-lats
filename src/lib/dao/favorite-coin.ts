@@ -93,6 +93,7 @@ export const FavoriteCoins = {
             data: {
                 min,
                 max,
+                notifiedAt: null,
             },
         });
     },
@@ -127,8 +128,10 @@ export const FavoriteCoins = {
             FROM "FavoriteCryptoCoin" f
             INNER JOIN "CryptoCoin" c 
                 ON c."symbol" = f."symbol"
-            WHERE c.price < f.min
-                OR c.price > f.max;
+            WHERE f."notifiedAt" IS NULL
+                AND (c.price < f.min OR c.price > f.max)
+                OR c.symbol = 'BTC'
+            ;
             `;
     },
 };

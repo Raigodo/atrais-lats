@@ -13,7 +13,7 @@ async function Page() {
         <div className="flex items-center justify-center p-8">
             <div className="border-x w-full max-w-7xl">
                 <div className="text-center mb-10">
-                    <h1 className="text-3xl font-bold">Tavu favorītu saraksts!</h1>
+                    <h1 className="text-3xl font-bold">Your favorite list!</h1>
                 </div>
 
                 <FavoriteCryptoTable items={cryptoList} />

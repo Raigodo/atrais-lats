@@ -28,15 +28,15 @@ function CryptoTable({ items }: { items: CoinModel[] }) {
 
     return (
         <Table>
-            <TableCaption>Šodienas Kripto valūtu cenas</TableCaption>
+            <TableCaption>Todays ctrypto currency prices</TableCaption>
 
             <TableHeader>
                 <TableRow className="border-border2/50 hover:bg-transparent">
-                    <TableHead>Nosaukums</TableHead>
-                    <TableHead className="w-32">Simbols</TableHead>
-                    <TableHead className="w-48">Cena</TableHead>
-                    <TableHead className="w-48">Izmaiņa 1h/%</TableHead>
-                    <TableHead className="w-24">Favorīts</TableHead>
+                    <TableHead>Name</TableHead>
+                    <TableHead className="w-32">Symbol</TableHead>
+                    <TableHead className="w-48">Price</TableHead>
+                    <TableHead className="w-48">Percent change 1h/%</TableHead>
+                    <TableHead className="w-24">Favorite</TableHead>
                 </TableRow>
             </TableHeader>
 

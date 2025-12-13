@@ -1,11 +1,15 @@
 import { NotiffyJob, JobQueueProvider } from ".";
 import "dotenv/config";
+import { prisma } from "../clients/prisma";
 
 const queue: NotiffyJob[] = [];
 
 async function processJob(job: NotiffyJob) {
+    await prisma.favoriteCryptoCoin.update({
+        where: { symbol_userId: { symbol: job.symbol, userId: job.userId } },
+        data: { notifiedAt: new Date() },
+    });
     console.log("[LOCAL QUEUE] Sending email →", job.userId, job.message);
-    await new Promise((r) => setTimeout(r, 500));
 }
 
 export const LocalQueue: JobQueueProvider = {

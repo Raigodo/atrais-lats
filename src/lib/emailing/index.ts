@@ -1,6 +1,7 @@
 import { LocalQueue } from "./dev-mail-queue";
 
 export interface NotiffyJob {
+    symbol: string;
     userId: string;
     message: any;
 }

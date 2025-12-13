@@ -5,7 +5,7 @@ import Link from "next/link";
 function LoginButton({ className }: { className?: string }) {
     return (
         <Link className={cn(buttonVariants(), className)} href={"/auth/login"}>
-            Pieslēgties
+            Sign In
         </Link>
     );
 }

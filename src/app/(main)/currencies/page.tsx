@@ -7,15 +7,14 @@ import { getServerSession } from "next-auth";
 
 export default async function Page() {
     const session = await getServerSession();
-    console.log(session?.user);
-
     const cryptoList = await Coins.all(session?.user.email);
 
     return (
         <div className="flex items-center justify-center">
             <div className="p-8 w-full max-w-7xl">
+                <div>{new Date().getTime()}</div>
                 <div className="text-center mb-10">
-                    <h1 className="text-3xl font-bold">Šodienas Kripto valūtu cenas!</h1>
+                    <h1 className="text-3xl font-bold">Todays ctrypto currency prices!</h1>
                 </div>
                 <CryptoTable items={cryptoList} />
                 <Pagination />

@@ -31,16 +31,16 @@ function FavoriteCryptoTable({ items }: { items: FavoriteCoinModel[] }) {
 
     return (
         <Table>
-            <TableCaption>Tavu favorītu saraksts</TableCaption>
+            <TableCaption>Your favorite list</TableCaption>
 
             <TableHeader>
                 <TableRow className="border-border2/50">
-                    <TableHead>Nosaukums</TableHead>
-                    <TableHead className="w-32">Simbols</TableHead>
-                    <TableHead className="w-48">Cena</TableHead>
-                    <TableHead className="w-48">Izmaiņa 1h/%</TableHead>
-                    <TableHead className="w-48">Min. vērtība</TableHead>
-                    <TableHead className="w-48">Max. vērtība</TableHead>
+                    <TableHead>Name</TableHead>
+                    <TableHead className="w-32">Symbol</TableHead>
+                    <TableHead className="w-48">Price</TableHead>
+                    <TableHead className="w-48">Percent change 1h/%</TableHead>
+                    <TableHead className="w-48">Min. price</TableHead>
+                    <TableHead className="w-48">Max. price</TableHead>
                 </TableRow>
             </TableHeader>
 

@@ -15,8 +15,8 @@ export async function GET(request: Request) {
     //     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     // }
 
-    const latestCoins = await CoinMarketCap.getLatestCoinListings();
-    await Coins.updateAll(latestCoins);
+    // const latestCoins = await CoinMarketCap.getLatestCoinListings();
+    // await Coins.updateAll(latestCoins);
 
     const toNotiffy = await FavoriteCoins.allToNotiffy();
 
@@ -25,7 +25,8 @@ export async function GET(request: Request) {
             const priceState = item.price > item.max ? "high" : "low";
             const message = `${item.name} (${item.symbol}) price is ${priceState}!`;
             getNNotiffyQueue().enqueue({
-                userId: (await prisma.user.findFirst())!.id,
+                symbol: item.symbol,
+                userId: item.userId,
                 message,
             });
         })

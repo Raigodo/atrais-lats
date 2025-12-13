@@ -45,7 +45,7 @@ async function RootLayoutHeader() {
                                     "border-border2"
                                 )}
                             >
-                                Sākumlapa
+                                Homepage
                             </div>
                         </Link>
                     </li>
@@ -58,7 +58,7 @@ async function RootLayoutHeader() {
                                         "border-border2"
                                     )}
                                 >
-                                    Favorīti
+                                    Favorites
                                 </div>
                             </Link>
                         </li>

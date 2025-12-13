@@ -48,6 +48,7 @@ model FavoriteCryptoCoin {
   	min             Float
   	max             Float
 	timestamp	   	DateTime                @default(now())
+	notifiedAt		DateTime?
 
 	coin			CryptoCoin             	@relation(fields: [symbol], references: [symbol])
   	user            User                    @relation(fields: [userId], references: [id])
