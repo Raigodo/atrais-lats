@@ -4,6 +4,10 @@ export function createSuccessResponse() {
     return { success: true, errors: {} };
 }
 
+export function createUnexpectedErrorResponse() {
+    return { success: false, errors: { _global: ["Unexpected error ocured"] } };
+}
+
 export function createAuthErrorResponse() {
     return { success: false, errors: { _global: ["User not authenticated"] } };
 }
