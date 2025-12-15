@@ -1,12 +1,13 @@
 import "dotenv/config";
-import { CoinModel } from "../models/coin-model";
+import { CoinModel } from "../../types/models/coin-model";
 
 export const CoinMarketCap = {
     getLatestCoinListings: async (): Promise<CoinModel[]> => {
+        "use cache";
+
         const response = await fetch(
             "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?limit=20",
             {
-                cache: "force-cache",
                 headers: {
                     "X-CMC_PRO_API_KEY": process.env.COINMARKETCAP_API_KEY!,
                 },

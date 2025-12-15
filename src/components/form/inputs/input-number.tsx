@@ -44,7 +44,6 @@ function FormInput({
         const cleaned = (e.target as HTMLInputElement).value;
         setValue(cleaned);
         const numericValue = cleaned ? parseFloat(cleaned) : 0;
-        console.log(cleaned, numericValue);
         onChange?.(numericValue);
     }
 

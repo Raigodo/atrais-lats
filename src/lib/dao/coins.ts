@@ -1,5 +1,5 @@
 import { cacheLife, cacheTag, revalidateTag } from "next/cache";
-import { CoinModel } from "../models/coin-model";
+import { CoinModel } from "../../types/models/coin-model";
 import { prisma } from "../clients/prisma";
 
 export const Coins = {

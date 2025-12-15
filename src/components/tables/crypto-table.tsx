@@ -1,6 +1,6 @@
 "use client";
 
-import { CoinModel } from "@/src/lib/models/coin-model";
+import { CoinModel } from "@/src/types/models/coin-model";
 import {
     Table,
     TableBody,

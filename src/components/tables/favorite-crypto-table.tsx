@@ -11,7 +11,7 @@ import {
     TableHeader,
     TableRow,
 } from "../ui/table";
-import { FavoriteCoinModel } from "@/src/lib/models/favorite-coin-model";
+import { FavoriteCoinModel } from "@/src/types/models/favorite-coin-model";
 
 function FavoriteCryptoTable({ items }: { items: FavoriteCoinModel[] }) {
     const { openModal } = useModalManager();

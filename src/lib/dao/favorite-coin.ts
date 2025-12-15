@@ -1,4 +1,4 @@
-import { FavoriteCoinModel } from "../models/favorite-coin-model";
+import { FavoriteCoinModel } from "../../types/models/favorite-coin-model";
 import { prisma } from "../clients/prisma";
 
 export const FavoriteCoins = {
@@ -57,13 +57,6 @@ export const FavoriteCoins = {
         min: number;
         max: number;
     }) => {
-        console.log({
-            symbol,
-            userId,
-            min,
-            max,
-        });
-
         return prisma.favoriteCryptoCoin.create({
             data: {
                 symbol,
