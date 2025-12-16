@@ -12,7 +12,6 @@ export default async function Page() {
     return (
         <div className="flex items-center justify-center">
             <div className="p-8 w-full max-w-7xl">
-                <div>{new Date().getTime()}</div>
                 <div className="text-center mb-10">
                     <h1 className="text-3xl font-bold">Todays ctrypto currency prices!</h1>
                 </div>
