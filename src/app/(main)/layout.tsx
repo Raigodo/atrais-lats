@@ -10,7 +10,7 @@ import ModalManagerContextProvider from "@/src/components/dialogs/modal-manager-
 import LogoutButton from "@/src/components/page/logout-button";
 import { getServerSession } from "next-auth";
 
-export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+async function Layout({ children }: { children: ReactNode }) {
     return (
         <MySessionProvider>
             <ModalManagerContextProvider>
@@ -26,6 +26,8 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         </MySessionProvider>
     );
 }
+
+export default Layout;
 
 async function RootLayoutHeader() {
     const session = await getServerSession();

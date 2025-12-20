@@ -26,7 +26,7 @@ function BaseModalComponent({
 }: BaseModalComponentProps) {
     return (
         <Dialog open={isOpen} onOpenChange={(value) => value !== isOpen && !value && closeModal()}>
-            <DialogContent className="grid max-h-[500px] grid-rows-[auto_minmax(0,1fr)] px-4">
+            <DialogContent className="grid max-h-125 grid-rows-[auto_minmax(0,1fr)] px-4">
                 <DialogHeader className="px-2">
                     <DialogTitle>{title}</DialogTitle>
                     <DialogDescription>{description}</DialogDescription>

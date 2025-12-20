@@ -1,15 +1,19 @@
-import { cacheLife, cacheTag, revalidateTag } from "next/cache";
+import { revalidateTag } from "next/cache";
 import { CoinModel } from "../../types/models/coin-model";
 import { prisma } from "../clients/prisma";
 
 export const Coins = {
-    all: async (userId: string | null | undefined): Promise<CoinModel[]> => {
+    all: async (userId: string | null | undefined, page: number): Promise<CoinModel[]> => {
         // "use cache";
         // cacheTag("coins");
         // cacheLife({ revalidate: 360 });
 
+        const windowSize = 5;
+        const skip = (page - 1) * windowSize;
+
         const currencies = await prisma.cryptoCoin.findMany({
-            take: 40,
+            take: windowSize,
+            skip: skip,
             include: {
                 favorites: userId
                     ? {

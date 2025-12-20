@@ -1,6 +1,8 @@
+"use server";
+
 import { redirect } from "next/navigation";
 
-function Page() {
+async function Page() {
     return redirect("/currencies");
 }
 

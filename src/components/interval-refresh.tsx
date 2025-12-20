@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { ReactNode, Suspense, useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 
 function IntervalRefresh({ children, interval }: { children: ReactNode; interval: number }) {
     const router = useRouter();
@@ -16,7 +16,7 @@ function IntervalRefresh({ children, interval }: { children: ReactNode; interval
         };
     }, [router, interval]);
 
-    return <Suspense>{children}</Suspense>;
+    return children;
 }
 
 export default IntervalRefresh;

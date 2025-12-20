@@ -1,5 +1,6 @@
 "use server";
 
+import PaginatedView from "@/src/components/page/paginated-view";
 import Pagination from "@/src/components/page/pagination";
 import FavoriteCryptoTable from "@/src/components/tables/favorite-crypto-table";
 import { FavoriteCoins } from "@/src/lib/dao/favorite-coin";
@@ -16,8 +17,9 @@ async function Page() {
                     <h1 className="text-3xl font-bold">Your favorite list!</h1>
                 </div>
 
-                <FavoriteCryptoTable items={cryptoList} />
-                <Pagination />
+                <PaginatedView lastPage={10}>
+                    <FavoriteCryptoTable items={cryptoList} />
+                </PaginatedView>
             </div>
         </div>
     );

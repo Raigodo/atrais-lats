@@ -12,7 +12,6 @@ import {
 } from "../ui/table";
 import { useModalManager } from "../dialogs/modal-manager-context-provider";
 import { ModalKeys } from "../dialogs/modal-keys";
-import { useSession } from "next-auth/react";
 
 function CryptoTable({ items }: { items: CoinModel[] }) {
     const { openModal } = useModalManager();
@@ -23,8 +22,6 @@ function CryptoTable({ items }: { items: CoinModel[] }) {
             bag: { price: coin.price, name: coin.name, symbol: coin.symbol },
         });
     }
-
-    const session = useSession();
 
     return (
         <Table>
