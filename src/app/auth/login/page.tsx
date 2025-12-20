@@ -4,7 +4,7 @@ import { Button } from "@/src/components/ui/button";
 import Link from "next/link";
 import { GithubIcon } from "lucide-react";
 import { signIn } from "next-auth/react";
-import LoginForm from "@/src/components/form/forms/login-form";
+import LoginForm from "@/src/components/forms/forms/login-form";
 
 function Page() {
     return (

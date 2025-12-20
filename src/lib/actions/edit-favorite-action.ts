@@ -7,7 +7,7 @@ import {
     createDataErrorResponse,
     createSuccessResponse,
 } from "../helper/response";
-import { BaseServerAction } from "@/src/components/form/base-form-props";
+import { BaseServerAction } from "@/src/components/forms/base-form-props";
 import { FavoriteCoins } from "../dao/favorite-coin";
 import { revalidatePath } from "next/cache";
 import { getServerUser } from "../helper/session";

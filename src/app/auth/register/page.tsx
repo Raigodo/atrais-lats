@@ -1,6 +1,6 @@
 "use client";
 
-import RegisterForm from "@/src/components/form/forms/register-form";
+import RegisterForm from "@/src/components/forms/forms/register-form";
 
 function Page() {
     return (

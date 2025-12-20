@@ -3,6 +3,14 @@ import { CoinModel } from "../../types/models/coin-model";
 import { prisma } from "../clients/prisma";
 
 export const Coins = {
+    allCount: async (userId: string | null | undefined) => {
+        // "use cache";
+        // cacheTag("coins");
+        // cacheLife({ revalidate: 360 });
+
+        return prisma.cryptoCoin.count();
+    },
+
     all: async (userId: string | null | undefined, page: number): Promise<CoinModel[]> => {
         // "use cache";
         // cacheTag("coins");

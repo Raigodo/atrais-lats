@@ -1,5 +1,5 @@
 import BaseModalComponent, { AbstractModalComponentProps } from "../base-modal-component";
-import CreateFavoriteCoinForm from "../../form/forms/create-favorite-coin-form";
+import CreateFavoriteCoinForm from "../../forms/forms/create-favorite-coin-form";
 
 export interface CreateFavoriteModalComponentProps extends AbstractModalComponentProps {
     price: number;

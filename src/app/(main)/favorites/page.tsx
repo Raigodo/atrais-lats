@@ -1,7 +1,7 @@
 "use server";
 
-import PaginatedView from "@/src/components/page/paginated-view";
-import Pagination from "@/src/components/page/pagination";
+import PaginatedView from "@/src/components/pagination/paginated-view";
+import Pagination from "@/src/components/pagination/pagination";
 import FavoriteCryptoTable from "@/src/components/tables/favorite-crypto-table";
 import { FavoriteCoins } from "@/src/lib/dao/favorite-coin";
 import { getServerSession } from "next-auth";

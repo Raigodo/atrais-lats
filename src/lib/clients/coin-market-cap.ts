@@ -3,7 +3,7 @@ import { CoinModel } from "../../types/models/coin-model";
 
 export const CoinMarketCap = {
     getLatestCoinListings: async (): Promise<CoinModel[]> => {
-        "use cache";
+        // "use cache";
 
         const response = await fetch(
             "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?limit=20",
@@ -27,6 +27,6 @@ export const CoinMarketCap = {
             timestamp: timestamp,
         }));
 
-        return partialCoinList;
+        return [];
     },
 };

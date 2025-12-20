@@ -1,4 +1,4 @@
-import EditFavoriteCoinForm from "../../form/forms/edit-favorite-coin-form";
+import EditFavoriteCoinForm from "../../forms/forms/edit-favorite-coin-form";
 import BaseModalComponent, { AbstractModalComponentProps } from "../base-modal-component";
 
 export interface EditFavoriteModalComponentProps extends AbstractModalComponentProps {

@@ -1,13 +1,13 @@
 "use server";
 
 import Link from "next/link";
-import LoginButton from "@/src/components/page/login-button";
+import LoginButton from "@/src/components/buttons/login-button";
 import { cn } from "../../lib/utils";
 import { buttonVariants } from "../../components/ui/button";
 import MySessionProvider from "@/src/components/my-session-provider";
 import { ReactNode, Suspense } from "react";
 import ModalManagerContextProvider from "@/src/components/dialogs/modal-manager-context-provider";
-import LogoutButton from "@/src/components/page/logout-button";
+import LogoutButton from "@/src/components/buttons/logout-button";
 import { getServerSession } from "next-auth";
 
 async function Layout({ children }: { children: ReactNode }) {

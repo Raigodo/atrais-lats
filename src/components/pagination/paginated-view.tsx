@@ -1,24 +1,35 @@
+"use server";
+
 import { ReactNode } from "react";
 import Pagination from "./pagination";
+import { redirect } from "next/navigation";
 
-function PaginatedView({
+async function PaginatedView({
     children,
     path,
     currentPage,
-    lastPage,
+    totalItemCount,
+    itemsPerPage = 5,
 }: {
     children: ReactNode;
     path: string;
     currentPage: number;
-    lastPage: number;
+    totalItemCount: number;
+    itemsPerPage?: number;
 }) {
+    const lastPage = Math.ceil(totalItemCount / itemsPerPage);
+
+    if (lastPage < currentPage) {
+        return redirect(generatePageUrl(path, lastPage));
+    }
+
     return (
         <div>
             {children}
             <Pagination
                 currentPage={currentPage}
                 generatePageUrl={(page: number) => generatePageUrl(path, page)}
-                slidingWindow={getPageWindow(currentPage, lastPage)}
+                slidingWindow={getPageWindow(currentPage, lastPage, itemsPerPage)}
                 lastPage={lastPage}
             />
         </div>

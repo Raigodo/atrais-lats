@@ -13,22 +13,22 @@ export async function GET(request: Request) {
     // }
 
     const latestCoins = await CoinMarketCap.getLatestCoinListings();
-    await Coins.updateAll(latestCoins);
+    // await Coins.updateAll(latestCoins);
 
-    const toNotiffy = await FavoriteCoins.allToNotiffy();
+    // const toNotiffy = await FavoriteCoins.allToNotiffy();
 
-    await Promise.all(
-        toNotiffy.map(async (item) => {
-            const priceState = item.price > item.max ? "high" : "low";
-            const message = `${item.name} (${item.symbol}) price is ${priceState}!`;
+    // await Promise.all(
+    //     toNotiffy.map(async (item) => {
+    //         const priceState = item.price > item.max ? "high" : "low";
+    //         const message = `${item.name} (${item.symbol}) price is ${priceState}!`;
 
-            await NotifyFavoriteJobQueue.enqueue({
-                symbol: item.symbol,
-                userId: item.userId,
-                message,
-            });
-        })
-    );
+    //         await NotifyFavoriteJobQueue.enqueue({
+    //             symbol: item.symbol,
+    //             userId: item.userId,
+    //             message,
+    //         });
+    //     })
+    // );
 
     revalidateTag("coins", "max");
 
